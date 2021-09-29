@@ -2,6 +2,7 @@ import React, { useMemo, forwardRef, useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import MOC_DATA from '../MOCK_DATA.json';
 import CustomFirstName from './CustomFirstName';
+import { alpha } from '@material-ui/core/styles';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -46,25 +47,26 @@ const empStatusFormat = [
 
 function BasicTable1() {
  const [empStatus, setEmpStatus] = useState({});
+ const [tableData, setTableData] = useState(MOC_DATA);
  useEffect(() => {
   const status = {};
   empStatusFormat.map((p) => (status[p.id] = p.title));
   setEmpStatus(status);
  }, []);
- const DATA = useMemo(() => MOC_DATA, []);
+ //const DATA = useMemo(() => MOC_DATA, []);
  const columns = [
-  { title: 'Id', field: 'id' },
+  { title: 'Id', field: 'id', editable: false },
   {
    title: 'First Name',
    field: 'first_name',
    render: (row) => <CustomFirstName name={row.first_name} />,
   },
   { title: 'Last Name', field: 'last_name' },
-  { title: 'Email', field: 'email' },
-  { title: 'Date Of Birth', field: 'date_of_birth' },
-  { title: 'Age', field: 'age' },
+  //{ title: 'Email', field: 'email' },
+  //{ title: 'Date Of Birth', field: 'date_of_birth' },
+  //{ title: 'Age', field: 'age' },
   { title: 'Country', field: 'country' },
-  { title: 'Phone', field: 'phone' },
+  //{ title: 'Phone', field: 'phone' },
   { title: 'Amount', field: 'amount', render: (row) => `₹${row.amount}` },
   { title: 'Gender', field: 'gender', lookup: { M: 'Male', F: 'Female' } },
   { title: 'Status', field: 'status', lookup: empStatus },
@@ -83,12 +85,36 @@ function BasicTable1() {
    <MaterialTable
     icons={tableIcons}
     title="Basic Material Table"
-    data={DATA}
+    data={tableData}
     columns={columns}
     options={{
      search: true,
      paging: true,
      filtering: true,
+     actionsColumnIndex: -1,
+     addRowPosition: 'first',
+    }}
+    editable={{
+     onRowAdd: (newRow) =>
+      new Promise((resolve, reject) => {
+       const addNewRow = async () => {
+        try {
+         //do async call to add a new row in DB
+         console.log(newRow);
+         const updatedRow = [
+          ...tableData,
+          { ...newRow, id: Math.ceil(Math.random() * 100) + 200 },
+         ];
+         setTableData(updatedRow);
+         setTimeout(() => {
+          resolve();
+         }, 1500);
+        } catch (error) {
+         reject();
+        }
+       };
+       addNewRow();
+      }),
     }}
    />
   </div>
