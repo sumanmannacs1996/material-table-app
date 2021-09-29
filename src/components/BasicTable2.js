@@ -1,5 +1,7 @@
 import React, { useMemo, forwardRef, useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
+import Grid from '@material-ui/core/Grid';
+import Avatar from '@material-ui/core/Avatar';
 import MOC_DATA from '../MOCK_DATA.json';
 
 import AddBox from '@material-ui/icons/AddBox';
@@ -53,7 +55,22 @@ function BasicTable1() {
  const DATA = useMemo(() => MOC_DATA, []);
  const columns = [
   { title: 'Id', field: 'id' },
-  { title: 'First Name', field: 'first_name' },
+  {
+   title: 'First Name',
+   field: 'first_name',
+   render: (row) => (
+    <Grid container alignItems="center">
+     <Grid item sm={7}>
+      <Avatar style={{ backgroundColor: 'lightsalmon' }}>
+       {row.first_name[0]}
+      </Avatar>
+     </Grid>
+     <Grid item sm={5}>
+      {row.first_name}
+     </Grid>
+    </Grid>
+   ),
+  },
   { title: 'Last Name', field: 'last_name' },
   { title: 'Email', field: 'email' },
   { title: 'Date Of Birth', field: 'date_of_birth' },
