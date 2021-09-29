@@ -63,6 +63,15 @@ function BasicTable1() {
   { title: 'Amount', field: 'amount', render: (row) => `₹${row.amount}` },
   { title: 'Gender', field: 'gender', lookup: { M: 'Male', F: 'Female' } },
   { title: 'Status', field: 'status', lookup: empStatus },
+  {
+   title: 'Status using Reander',
+   field: 'status',
+   render: (row) => (
+    <div className={row.status ? 'status-active' : 'status-deactive'}>
+     {row.status ? 'Active' : 'Deactive'}
+    </div>
+   ),
+  },
  ];
  return (
   <div>
