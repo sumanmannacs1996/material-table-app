@@ -151,6 +151,30 @@ function BasicTable1() {
        };
        updateRow(selectedRow);
       }),
+     onBulkUpdate: (changedRows) =>
+      new Promise((resolve, reject) => {
+       const bulkUpdate = async (changedRows) => {
+        try {
+         const changedItems = Object.values(changedRows); // it will change object to array
+         //console.dir(changedItems);
+         const updatedRows = [...tableData];
+         changedItems.forEach((p) => {
+          const index = updatedRows.findIndex((row) => row.id === p.newData.id);
+          updatedRows[index] = p.newData;
+         });
+         ////do async call to delete row in DB
+         console.dir(updatedRows);
+         setTableData(updatedRows);
+         setTimeout(() => {
+          console.log('done');
+          resolve();
+         }, 1500);
+        } catch (error) {
+         reject();
+        }
+       };
+       bulkUpdate(changedRows);
+      }),
     }}
    />
   </div>
