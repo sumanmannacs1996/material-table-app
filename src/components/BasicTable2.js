@@ -1,4 +1,4 @@
-import React, { useMemo, forwardRef } from 'react';
+import React, { useMemo, forwardRef, useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import MOC_DATA from '../MOCK_DATA.json';
 
@@ -38,7 +38,18 @@ const tableIcons = {
  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
+const empStatusFormat = [
+ { id: 0, title: 'Deactive' },
+ { id: 1, title: 'Active' },
+];
+
 function BasicTable1() {
+ const [empStatus, setEmpStatus] = useState({});
+ useEffect(() => {
+  const status = {};
+  empStatusFormat.map((p) => (status[p.id] = p.title));
+  setEmpStatus(status);
+ }, []);
  const DATA = useMemo(() => MOC_DATA, []);
  const columns = [
   { title: 'Id', field: 'id' },
@@ -50,7 +61,8 @@ function BasicTable1() {
   { title: 'Country', field: 'country' },
   { title: 'Phone', field: 'phone' },
   { title: 'Amount', field: 'amount' },
-  { title: 'Gender', field: 'gender' },
+  { title: 'Gender', field: 'gender', lookup: { M: 'Male', F: 'Female' } },
+  { title: 'Status', field: 'status', lookup: empStatus },
  ];
  return (
   <div>
