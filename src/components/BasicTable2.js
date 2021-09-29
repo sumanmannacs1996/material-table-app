@@ -100,7 +100,7 @@ function BasicTable1() {
        const addNewRow = async () => {
         try {
          //do async call to add a new row in DB
-         console.log(newRow);
+         //console.log(newRow);
          const updatedRow = [
           ...tableData,
           { ...newRow, id: Math.ceil(Math.random() * 100) + 200 },
@@ -114,6 +114,23 @@ function BasicTable1() {
         }
        };
        addNewRow();
+      }),
+     onRowDelete: (selectRow) =>
+      new Promise((resolve, reject) => {
+       const deleteRow = async () => {
+        try {
+         //do async call to delete row in DB
+         //console.log(selectRow);
+         const updatedRow = tableData.filter((p) => p.id !== selectRow.id);
+         setTableData(updatedRow);
+         setTimeout(() => {
+          resolve();
+         }, 1500);
+        } catch (error) {
+         reject();
+        }
+       };
+       deleteRow();
       }),
     }}
    />
