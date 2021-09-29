@@ -60,7 +60,7 @@ function BasicTable1() {
   { title: 'Age', field: 'age' },
   { title: 'Country', field: 'country' },
   { title: 'Phone', field: 'phone' },
-  { title: 'Amount', field: 'amount' },
+  { title: 'Amount', field: 'amount', render: (row) => `₹${row.amount}` },
   { title: 'Gender', field: 'gender', lookup: { M: 'Male', F: 'Female' } },
   { title: 'Status', field: 'status', lookup: empStatus },
  ];
