@@ -97,7 +97,7 @@ function BasicTable1() {
     editable={{
      onRowAdd: (newRow) =>
       new Promise((resolve, reject) => {
-       const addNewRow = async () => {
+       const addNewRow = async (newRow) => {
         try {
          //do async call to add a new row in DB
          //console.log(newRow);
@@ -113,11 +113,11 @@ function BasicTable1() {
          reject();
         }
        };
-       addNewRow();
+       addNewRow(newRow);
       }),
      onRowDelete: (selectRow) =>
       new Promise((resolve, reject) => {
-       const deleteRow = async () => {
+       const deleteRow = async (selectRow) => {
         try {
          //do async call to delete row in DB
          //console.log(selectRow);
@@ -130,7 +130,26 @@ function BasicTable1() {
          reject();
         }
        };
-       deleteRow();
+       deleteRow(selectRow);
+      }),
+     onRowUpdate: (selectedRow) =>
+      new Promise((resolve, reject) => {
+       const updateRow = async (selectedRow) => {
+        try {
+         //do async call to delete row in DB
+         //console.log(selectedRow);
+         const updatedRow = tableData.map((p) =>
+          p.id === selectedRow.id ? selectedRow : p,
+         );
+         setTableData(updatedRow);
+         setTimeout(() => {
+          resolve();
+         }, 1500);
+        } catch (error) {
+         reject();
+        }
+       };
+       updateRow(selectedRow);
       }),
     }}
    />
