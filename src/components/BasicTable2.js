@@ -49,6 +49,8 @@ function BasicTable1() {
   { title: 'Age', field: 'age' },
   { title: 'Country', field: 'country' },
   { title: 'Phone', field: 'phone' },
+  { title: 'Amount', field: 'amount' },
+  { title: 'Gender', field: 'gender' },
  ];
  return (
   <div>
@@ -57,6 +59,11 @@ function BasicTable1() {
     title="Basic Material Table"
     data={DATA}
     columns={columns}
+    options={{
+     search: true,
+     paging: true,
+     filtering: true,
+    }}
    />
   </div>
  );
