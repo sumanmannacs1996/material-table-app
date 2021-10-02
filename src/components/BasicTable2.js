@@ -60,7 +60,7 @@ function BasicTable1() {
  };
  //const DATA = useMemo(() => MOC_DATA, []);
  const columns = [
-  { title: 'Id', field: 'id', editable: false },
+  { title: 'Id', field: 'id', editable: false, grouping: false },
   {
    title: 'First Name',
    field: 'first_name',
@@ -98,6 +98,7 @@ function BasicTable1() {
      filtering: true,
      actionsColumnIndex: -1,
      addRowPosition: 'first',
+     grouping: true,
     }}
     editable={{
      onRowAdd: (newRow) =>
