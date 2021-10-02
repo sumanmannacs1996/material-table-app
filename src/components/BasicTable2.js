@@ -25,6 +25,8 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 const tableIcons = {
  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -230,6 +232,17 @@ function BasicTable1() {
      Row: (props) => <CustomRow {...props} handleDelete={handleDelete} />,
      Pagination: (props) => <CustomPagination {...props} />,
     }}
+    actions={[
+     {
+      icon: () => (darkMode ? <Brightness7Icon /> : <Brightness4Icon />),
+      tooltip: 'Toggle light/dark mode',
+      onClick: () => {
+       localStorage.setItem('_tableDarkMode', !darkMode);
+       setDarkMode(!darkMode);
+      },
+      isFreeAction: true,
+     },
+    ]}
    />
   </MuiThemeProvider>
  );
