@@ -145,6 +145,7 @@ function BasicTable1() {
      actionsColumnIndex: -1,
      addRowPosition: 'first',
      grouping: true,
+     columnsButton: true,
     }}
     editable={{
      isDeleteHidden: (row) => row.age < 18,
