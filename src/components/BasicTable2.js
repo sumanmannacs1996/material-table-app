@@ -198,6 +198,8 @@ function BasicTable1() {
      addRowPosition: 'first',
      grouping: true,
      columnsButton: true,
+     pageSize: 10,
+     pageSizeOptions: [10, 20, 50, 100],
     }}
     editable={{
      isDeleteHidden: (row) => row.age < 18,
