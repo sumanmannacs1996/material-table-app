@@ -8,7 +8,9 @@ import Link from '@material-ui/core/Link';
 import CustomPagination from './CustomPagination';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+import CustomToolBar from './CustomToolBar';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -60,6 +62,7 @@ function BasicTable1() {
  const [darkMode, setDarkMode] = useState(() =>
   localStorage.getItem('_tableDarkMode') === 'true' ? true : false,
  );
+ const [filterEnable, setFilterEnable] = useState(false);
  useEffect(() => {
   const status = {};
   empStatusFormat.map((p) => (status[p.id] = p.title));
@@ -138,7 +141,7 @@ function BasicTable1() {
     options={{
      search: true,
      paging: true,
-     filtering: true,
+     filtering: filterEnable,
      actionsColumnIndex: -1,
      addRowPosition: 'first',
      grouping: true,
@@ -231,6 +234,7 @@ function BasicTable1() {
     components={{
      Row: (props) => <CustomRow {...props} handleDelete={handleDelete} />,
      Pagination: (props) => <CustomPagination {...props} />,
+     Toolbar: (props) => <CustomToolBar {...props} />,
     }}
     actions={[
      {
@@ -240,6 +244,17 @@ function BasicTable1() {
        localStorage.setItem('_tableDarkMode', !darkMode);
        setDarkMode(!darkMode);
       },
+      isFreeAction: true,
+     },
+     {
+      icon: () => (
+       <Checkbox
+        checked={filterEnable}
+        onChange={() => setFilterEnable(!filterEnable)}
+        inputProps={{ 'aria-label': 'primary checkbox' }}
+       />
+      ),
+      tooltip: 'Hide/Show Filter Options',
       isFreeAction: true,
      },
     ]}
