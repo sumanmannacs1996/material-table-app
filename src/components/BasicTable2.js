@@ -6,6 +6,9 @@ import { alpha } from '@material-ui/core/styles';
 import CustomRow from './CustomRow';
 import Link from '@material-ui/core/Link';
 import CustomPagination from './CustomPagination';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -49,13 +52,23 @@ const empStatusFormat = [
 ];
 
 function BasicTable1() {
+ console.log(localStorage.getItem('_tableDarkMode') === 'true');
  const [empStatus, setEmpStatus] = useState({});
  const [tableData, setTableData] = useState(MOC_DATA);
+ const [darkMode, setDarkMode] = useState(() =>
+  localStorage.getItem('_tableDarkMode') === 'true' ? true : false,
+ );
  useEffect(() => {
   const status = {};
   empStatusFormat.map((p) => (status[p.id] = p.title));
   setEmpStatus(status);
  }, []);
+
+ const theme = createMuiTheme({
+  palette: {
+   type: darkMode ? 'dark' : 'light',
+  },
+ });
 
  const handleDelete = (data) => {
   alert(data.id);
@@ -100,7 +113,21 @@ function BasicTable1() {
   },
  ];
  return (
-  <div>
+  <MuiThemeProvider theme={theme}>
+   <FormControlLabel
+    label="Dark Mode"
+    labelPlacement="top"
+    control={
+     <Switch
+      checked={darkMode}
+      color="primary"
+      onChange={() => {
+       localStorage.setItem('_tableDarkMode', !darkMode);
+       setDarkMode(!darkMode);
+      }}
+     />
+    }
+   />
    <MaterialTable
     icons={tableIcons}
     title="Basic Material Table"
@@ -204,7 +231,7 @@ function BasicTable1() {
      Pagination: (props) => <CustomPagination {...props} />,
     }}
    />
-  </div>
+  </MuiThemeProvider>
  );
 }
 
