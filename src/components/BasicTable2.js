@@ -5,6 +5,7 @@ import CustomFirstName from './CustomFirstName';
 import { alpha } from '@material-ui/core/styles';
 import CustomRow from './CustomRow';
 import Link from '@material-ui/core/Link';
+import CustomPagination from './CustomPagination';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -200,6 +201,7 @@ function BasicTable1() {
     }}
     components={{
      Row: (props) => <CustomRow {...props} handleDelete={handleDelete} />,
+     Pagination: (props) => <CustomPagination {...props} />,
     }}
    />
   </div>
