@@ -82,7 +82,7 @@ function BasicTable1() {
   { title: 'Last Name', field: 'last_name' },
   //{ title: 'Email', field: 'email' },
   //{ title: 'Date Of Birth', field: 'date_of_birth' },
-  //{ title: 'Age', field: 'age' },
+  { title: 'Age', field: 'age' },
   { title: 'Country', field: 'country' },
   //{ title: 'Phone', field: 'phone' },
   { title: 'Amount', field: 'amount', render: (row) => `₹${row.amount}` },
@@ -114,6 +114,9 @@ function BasicTable1() {
      grouping: true,
     }}
     editable={{
+     isDeleteHidden: (row) => row.age < 18,
+     isDeletable: (row) => row.gender === 'F',
+     isEditable: (row) => row.status === 1,
      onRowAdd: (newRow) =>
       new Promise((resolve, reject) => {
        const addNewRow = async (newRow) => {
