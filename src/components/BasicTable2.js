@@ -56,7 +56,7 @@ const empStatusFormat = [
 ];
 
 function BasicTable1() {
- console.log(localStorage.getItem('_tableDarkMode') === 'true');
+ //console.log(localStorage.getItem('_tableDarkMode') === 'true');
  const [empStatus, setEmpStatus] = useState({});
  const [tableData, setTableData] = useState(MOC_DATA);
  const [darkMode, setDarkMode] = useState(() =>
@@ -97,16 +97,68 @@ function BasicTable1() {
    title: 'First Name',
    field: 'first_name',
    render: (row) => <CustomFirstName name={row.first_name} />,
+   validate: (rowData) => {
+    if (rowData.first_name === undefined || rowData.first_name === '')
+     return 'Required!';
+    else if (rowData.first_name && rowData.first_name.length < 3)
+     return 'First name contains atleast 3 characters';
+    return true;
+   },
   },
-  { title: 'Last Name', field: 'last_name' },
+  {
+   title: 'Last Name',
+   field: 'last_name',
+   validate: (rowData) => {
+    if (rowData.last_name === undefined || rowData.last_name === '')
+     return 'Required!';
+    else if (rowData.last_name && rowData.last_name.length < 3)
+     return 'Last name contains atleast 3 characters';
+    return true;
+   },
+  },
   //{ title: 'Email', field: 'email' },
   //{ title: 'Date Of Birth', field: 'date_of_birth' },
-  { title: 'Age', field: 'age' },
-  { title: 'Country', field: 'country' },
+  {
+   title: 'Age',
+   field: 'age',
+   validate: (rowData) => {
+    if (rowData.age === undefined || rowData.age === '') return 'Required!';
+    else if (rowData.age && isNaN(rowData.age))
+     return 'Age must be a numeric value';
+    else if (rowData.age && rowData.age < 1)
+     return 'Age must be greater than 1';
+    else if (rowData.age && rowData.age > 100)
+     return 'Age must be less than 100';
+    return true;
+   },
+  },
+  {
+   title: 'Country',
+   field: 'country',
+   validate: (rowData) => ({ isValid: true, helperText: 'Optional' }),
+  },
   //{ title: 'Phone', field: 'phone' },
   { title: 'Amount', field: 'amount', render: (row) => `₹${row.amount}` },
-  { title: 'Gender', field: 'gender', lookup: { M: 'Male', F: 'Female' } },
-  { title: 'Status', field: 'status', lookup: empStatus },
+  {
+   title: 'Gender',
+   field: 'gender',
+   lookup: { M: 'Male', F: 'Female' },
+   validate: (rowData) => {
+    if (rowData.gender === undefined || rowData.gender === '')
+     return 'Required!';
+    return true;
+   },
+  },
+  {
+   title: 'Status',
+   field: 'status',
+   lookup: empStatus,
+   validate: (rowData) => {
+    if (rowData.status === undefined || rowData.status === '')
+     return 'Required!';
+    return true;
+   },
+  },
   {
    title: 'Status using Reander',
    field: 'status',
