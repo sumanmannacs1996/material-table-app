@@ -112,7 +112,7 @@ function BasicTable1() {
     if (rowData.last_name === undefined || rowData.last_name === '')
      return 'Required!';
     else if (rowData.last_name && rowData.last_name.length < 3)
-     return 'Last name contains atleast 3 characters';
+     return 'Last name contains atleast 3 character';
     return true;
    },
   },
