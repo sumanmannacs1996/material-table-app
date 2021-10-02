@@ -4,6 +4,7 @@ import MOC_DATA from '../MOCK_DATA.json';
 import CustomFirstName from './CustomFirstName';
 import { alpha } from '@material-ui/core/styles';
 import CustomRow from './CustomRow';
+import Link from '@material-ui/core/Link';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -60,7 +61,19 @@ function BasicTable1() {
  };
  //const DATA = useMemo(() => MOC_DATA, []);
  const columns = [
-  { title: 'Id', field: 'id', editable: false, grouping: false },
+  {
+   title: 'Id',
+   field: 'id',
+   editable: false,
+   grouping: false,
+   render: (rowData) => (
+    <Link
+     href={`https://picsum.photos/id/${rowData.id}/500/800`}
+     target="_blank">
+     {rowData.id}
+    </Link>
+   ),
+  },
   {
    title: 'First Name',
    field: 'first_name',

@@ -13,7 +13,7 @@ function CustomRow(props) {
    onMouseOver={() => setShowOverlay(true)}
    onMouseLeave={() => setShowOverlay(false)}>
    {showOverlay && (
-    <Grid style={{ position: 'absolute', width: '100%' }}>
+    <Grid className="button-overlay-style">
      <Grid
       container
       justifyContent="space-around"
@@ -22,7 +22,7 @@ function CustomRow(props) {
        borderRadius: '5px',
        margin: 'auto',
       }}
-      sm={2}>
+      sm={4}>
       <Grid item>
        <IconButton
         title="Downloard"
