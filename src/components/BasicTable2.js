@@ -3,6 +3,7 @@ import MaterialTable from 'material-table';
 import MOC_DATA from '../MOCK_DATA.json';
 import CustomFirstName from './CustomFirstName';
 import { alpha } from '@material-ui/core/styles';
+import CustomRow from './CustomRow';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -53,6 +54,10 @@ function BasicTable1() {
   empStatusFormat.map((p) => (status[p.id] = p.title));
   setEmpStatus(status);
  }, []);
+
+ const handleDelete = (data) => {
+  alert(data.id);
+ };
  //const DATA = useMemo(() => MOC_DATA, []);
  const columns = [
   { title: 'Id', field: 'id', editable: false },
@@ -175,6 +180,9 @@ function BasicTable1() {
        };
        bulkUpdate(changedRows);
       }),
+    }}
+    components={{
+     Row: (props) => <CustomRow {...props} handleDelete={handleDelete} />,
     }}
    />
   </div>
