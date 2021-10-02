@@ -200,6 +200,7 @@ function BasicTable1() {
      columnsButton: true,
      pageSize: 10,
      pageSizeOptions: [10, 20, 50, 100],
+     maxBodyHeight: 350,
     }}
     editable={{
      isDeleteHidden: (row) => row.age < 18,
